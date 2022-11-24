@@ -9,12 +9,12 @@ public class HeadlessTest extends BaseTest {
 
     @Test
     public void headlessTest () {
-        startUp("headless"); //Запуск в режиме headless
+        startUpHeadless(); //Запуск в режиме headless
         driver.get("https://duckduckgo.com/");
 
         driver.findElement(By.cssSelector("input#search_form_input_homepage")).sendKeys("ОТУС");
         driver.findElement(By.cssSelector("input#search_button_homepage")).click();
-        String str = driver.findElement(By.cssSelector("a[href=\"https://otus.ru/\"] span.EKtkFWMYpwzMKOYr0GYm")).getText();
+        String str = driver.findElement(By.xpath("//h2/a[@href=\"https://otus.ru/\"]/span")).getText();
 
         Assertions.assertEquals("Онлайн‑курсы для профессионалов, дистанционное обучение современным ...", str);
     }

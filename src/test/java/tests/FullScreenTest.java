@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import utils.BaseTest;
 
 public class FullScreenTest extends BaseTest {
@@ -12,12 +13,19 @@ public class FullScreenTest extends BaseTest {
         driver.manage().window().maximize();
         driver.get("https://otus.ru/");
 
-        driver.findElement(By.cssSelector("button.header2__auth")).click();
-        driver.findElement(By.xpath("//form[@action='/login/']//input[@name='email']")).clear();
-        driver.findElement(By.xpath("//form[@action='/login/']//input[@name='email']")).sendKeys("makar.slepov@limavi.ru");
-        driver.findElement(By.cssSelector("input.js-psw-input")).clear();
-        driver.findElement(By.cssSelector("input.js-psw-input")).sendKeys("TestPassword1!");
-        driver.findElement(By.xpath("//form[@action='/login/']//button[contains(text(), 'Войти')]")).click();
+        WebElement logInWindowButton = driver.findElement(By.cssSelector("button.header2__auth"));
+        logInWindowButton.click();
+
+        WebElement emailInput = driver.findElement(By.xpath("//form[@action='/login/']//input[@name='email']"));
+        emailInput.clear();
+        emailInput.sendKeys("makar.slepov@limavi.ru");
+
+        WebElement passInput = driver.findElement(By.xpath("input.js-psw-input"));
+        passInput.clear();
+        passInput.sendKeys("TestPassword1!");
+
+        WebElement logInButton = driver.findElement(By.xpath("//form[@action='/login/']//button[contains(text(), 'Войти')]"));
+        logInButton.click();
 
         logger.info(driver.manage().getCookies());
 
